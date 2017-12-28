@@ -11,17 +11,17 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
 
-  //WiFi.begin(ssid, password);
+  WiFi.begin(ssid, password);
 
-  //Serial.print("Conectando a ");
-  //Serial.println(ssid);
-  //while (WiFi.status() != WL_CONNECTED){
-    //delay(500);
-    //Serial.print(".");
-  //}
-  //Serial.println();
-  //Serial.print("Conectado! Su direccion IP es: ");
-  //Serial.println(WiFi.localIP());
+  Serial.print("Conectando a ");
+  Serial.println(ssid);
+  while (WiFi.status() != WL_CONNECTED){
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println();
+  Serial.print("Conectado! Su direccion IP es: ");
+  Serial.println(WiFi.localIP());
 
   pinMode(relay, OUTPUT);
   digitalWrite(relay, LOW);

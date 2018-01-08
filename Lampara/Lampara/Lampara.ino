@@ -34,10 +34,10 @@ void loop() {
   while (relay<100){
     digitalWrite(relay, HIGH);
     delay(2000);
-    Serial.println("ON");
+    Serial.println("OFF");
     digitalWrite(relay, LOW);
     delay(2000);
-    Serial.println("OFF"); 
+    Serial.println("ON"); 
   }
 
 }

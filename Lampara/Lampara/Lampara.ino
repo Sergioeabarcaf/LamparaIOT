@@ -6,6 +6,7 @@ const char* ssid = "LabProtein";
 const char* password = "teinpro_bal1602";
 const int relay = 5;
 
+uint8_t ownMAC[6];
 
 void setup() {
   Serial.begin(115200);
@@ -14,7 +15,8 @@ void setup() {
   WiFi.begin(ssid, password);
 
   Serial.print("Conectando a ");
-  Serial.println(ssid);
+  //Se debe parsear el contenido obtenido desde WiFi. con c_str()
+  Serial.printf("SSID: %s\n", WiFi.SSID().c_str());
   while (WiFi.status() != WL_CONNECTED){
     delay(500);
     Serial.print(".");
@@ -22,6 +24,8 @@ void setup() {
   Serial.println();
   Serial.print("Conectado! Su direccion IP es: ");
   Serial.println(WiFi.localIP());
+  WiFi.macAddress(ownMAC);
+  Serial.printf("MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n",ownMAC[0],ownMAC[1],ownMAC[2],ownMAC[3],ownMAC[4],ownMAC[5]);
 
   pinMode(relay, OUTPUT);
   digitalWrite(relay, LOW);

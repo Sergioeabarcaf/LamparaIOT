@@ -38,24 +38,21 @@ void loop() {
 
   digitalWrite(relay, HIGH);
 
-  Serial.printf("\n[Connecting to %s ... ", host);
+  Serial.printf("\n Conectando con %s ... ", host);
     
     if (client.connect(host, 80))
     {
-      Serial.println("connected]");
-      Serial.println("[Sending a request]");
-      client.print(String("GET /") + " HTTP/1.1\r\n" +
-        "Host: " + host + "\r\n" +
-        "Connection: close\r\n" +
-        "\r\n"
-      );
-      Serial.println("[Response:]");
+      Serial.println("Conectado con host");
       while (client.connected())
       {
         if (client.available())
         {
+          Serial.println("contenido disponible");
           String line = client.readStringUntil('\n');
           Serial.println(line);
+        }
+        else{
+          Serial.println("no hay contenido disponible");
         }
       }
       client.stop();
@@ -66,5 +63,5 @@ void loop() {
         Serial.println("connection failed!]");
         client.stop();
      }
-     delay(5000);
+     delay(30000);
 }

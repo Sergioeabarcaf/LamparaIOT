@@ -1,10 +1,13 @@
 function switchFunction(inp) {
+    var socket = io.connect();
+
     if (inp=="1") {
       console.log("entro a encender");
       var x = document.getElementById("onB");
       x.innerHTML = "disable";
       var y = document.getElementById("offB");
       y.innerHTML = "Apagar";
+
       socket.emit('sendCom',{
         value:inp
       });

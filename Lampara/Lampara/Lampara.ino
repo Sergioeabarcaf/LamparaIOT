@@ -34,34 +34,44 @@ void setup() {
 
 void loop() {
 
+  int a=0;
+
   WiFiClient client;
 
-  digitalWrite(relay, HIGH);
-
-  Serial.printf("\n Conectando con %s ... ", host);
-    
-    if (client.connect(host, 80))
+  Serial.printf("\n[Connecting  to  %s  ... ",  host);
+    if  (client.connect(host, 80))
     {
-      Serial.println("Conectado con host");
-      while (client.connected())
-      {
-        if (client.available())
+        Serial.println("connected]");
+        Serial.println("[Sending  a request]");
+        client.print(String("GET  /") + " HTTP/1.1\r\n" +
+                                  "Host:  " + host  + "\r\n"  +
+                                  "Connection:  close\r\n"  +
+                                  "\r\n"
+                                );
+        Serial.println("[Response:]");
+        while (client.connected())
         {
-          Serial.println("contenido disponible");
-          String line = client.readStringUntil('\n');
-          Serial.println(line);
+            if  (client.available())
+            {
+                String  line  = client.readStringUntil('\n');
+                Serial.println(line);
+                if (line == "Turismo\n"){
+                  digitalWrite(relay, HIGH);
+                  delay(3000);
+                }
+                Serial.println(a);
+                a++;
+            }
         }
-        else{
-          Serial.println("no hay contenido disponible");
-        }
-      }
-      client.stop();
-      Serial.println("\n[Disconnected]");
-     }
-     else
-     {
-        Serial.println("connection failed!]");
         client.stop();
-     }
-     delay(30000);
+        Serial.println("\n[Disconnected]");
+    }
+    else
+    {
+        Serial.println("connection  failed!]");
+        client.stop();
+    }
+    
+    delay(5000);
+    
 }

@@ -48,4 +48,4 @@ io.sockets.on('connection', function(socket) {
 		client.publish('luz',data.value);
 		console.log("se envio por mqtt, el dato: " + data.value);
 	})
-}
+});
